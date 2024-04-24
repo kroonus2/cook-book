@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
+  before_action :authorize_request, except: [:create, :change_password]
 
   def index
-    users = User.where(active: true)
-    if users.present?
-      render json: { message: "Lista de usuários recuperada com sucesso", users: users }, status: :ok
+    @users = User.where(active: true)
+    if @users.present?
+      render json: { message: "Lista de usuários recuperada com sucesso", users: @users }, status: :ok
     else
       render json: { message: "Não há usuários para exibir" }, status: :not_found
     end
