@@ -15,14 +15,7 @@ class AuthController < ApplicationController
     ##Logout será feita no front end
     def get_auth_user
         @user = User.find(@current_user[:id])
-
-        render json: {
-            user: {
-                id: @user[:id],
-                name: @user[:name],
-                email: @user[:email]
-            }
-        }
+        render json: {user: @user}
     end
 
 end

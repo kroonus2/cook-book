@@ -11,5 +11,6 @@ class Recipe < ApplicationRecord
   validates :instructions, presence: true
   validates :preparation_time, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :difficulty, inclusion: { in: %w(Fácil Médio Difícil), message: "%{value} não é uma dificuldade válida" }
+  validates :status, inclusion: {in: %w(active stored deleted), message: "%{value} não é um status válido"}
 
 end
