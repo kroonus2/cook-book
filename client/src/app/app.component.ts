@@ -10,5 +10,5 @@ import { RecipeComponent } from './components/recipe/recipe.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'client';
+  title = 'Cookbook';
 }
