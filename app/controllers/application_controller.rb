@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
                 render json: { error: "Token inválido ou expirado" , token: token}, status: :unauthorized
             end
         else
-            render json: { error: "Token de autenticação não fornecido" }, status: :unauthorized
+            render json: { error: "Token de autenticação não fornecido ou expirado!" }, status: :unauthorized
         end
     end
 end

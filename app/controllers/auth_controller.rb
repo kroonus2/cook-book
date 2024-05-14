@@ -4,9 +4,10 @@ class AuthController < ApplicationController
     def login 
         @user = User.find_by(email: params[:email])
         if @user&.authenticate(params[:password])
-            token = JWT.encode(@user.id, nil, 'none')
-            # Definir o token JWT no cabeçalho da resposta
-            response.headers['Authorization'] = "Bearer #{token}"
+            exp = Time.now.to_i + 4 * 3600
+            exp_payload = { :user_id => @user.id, :exp => exp }
+
+            token = JWT.encode(exp_payload, nil, 'none')
             render json: {token: token}, status: :ok
         else
             render json: {error: "Email ou Senha incorretos, verifique e tente novamente!"}, status: :not_found
