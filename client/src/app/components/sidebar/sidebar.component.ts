@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { CategoriesService } from '../../services/categories.service';
+import { RouterLink, RouterLinkActive, provideRouter } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
@@ -14,7 +15,7 @@ export class SidebarComponent implements OnInit{
   
   categories: any[] = [];
 
-  isSidebarExpanded: boolean = false;
+  isSidebarExpanded: boolean = true;
   isDropdownHidden: boolean = true;
 
   ngOnInit(): void {
