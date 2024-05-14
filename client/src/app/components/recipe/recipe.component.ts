@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RecipeService } from '../../services/recipe.service';
-import { RecipeDetail } from '../../interfaces/recipe-datail';
+import { RecipeDetail } from '../../interfaces/recipe-detail';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
@@ -20,8 +20,8 @@ export class RecipeComponent implements OnInit{
 
   loadRecipes(){
     this.recipeService.getRecipes().subscribe(({
-      next: (res: any) =>{
-        this.recipes = res.recipes as RecipeDetail[];
+      next: (response: any) =>{
+        this.recipes = response.recipes as RecipeDetail[];
         console.log("Recipes fetched successfully");
       }, 
       error: (error) => {
