@@ -1,6 +1,5 @@
 class RecipesController < ApplicationController
-    #before_action :authorize_request, only: [ :create, :update, :get_books ]
-    #before_action :get_auth_user
+    before_action :authorize_request, except: [:index]
 
     def index
         @recipes = Recipe.where(status: "active")

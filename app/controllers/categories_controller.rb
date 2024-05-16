@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :authorize_request, except: [:index]
+
   def index
     @categories = Category.all
     if @categories.present?
