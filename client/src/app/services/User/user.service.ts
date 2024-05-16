@@ -1,24 +1,27 @@
 import { Injectable, inject } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { LoginDetail } from '../interfaces/login-detail';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { UserDetail } from '../../interfaces/user-detail';
 
-const BASE_URL = environment.apiUrl + 'login';
-
+const BASE_URL = environment.apiUrl + 'users';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class UserService {
 
   private http = inject(HttpClient);
 
   constructor() { }
 
-  public newLogin(login: LoginDetail){
-    console.log({login});
-    return this.http.post(BASE_URL, login);
+  newUser(user: UserDetail): Observable<UserDetail> {
+    console.log({user});
+    return this.http.post<UserDetail>(BASE_URL, {user})
+      .pipe(
+        catchError(this.handleError<UserDetail>('newUser'))
+      );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
