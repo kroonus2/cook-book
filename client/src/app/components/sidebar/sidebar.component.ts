@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { CategoriesService } from '../../services/categories.service';
 import { RouterLink, RouterLinkActive, provideRouter } from '@angular/router';
+import { CategoriesService } from '../../services/Category/categories.service';
+import { AuthService } from '../../services/Auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,14 +14,21 @@ import { RouterLink, RouterLinkActive, provideRouter } from '@angular/router';
 })
 export class SidebarComponent implements OnInit{
   private categoriesServices = inject(CategoriesService);
+  private authServices = inject(AuthService);
   
+  isLoggedIn$: Observable<Boolean>;
   categories: any[] = [];
 
-  isSidebarExpanded: boolean = true;
+  isSidebarExpanded: boolean = false;
   isDropdownHidden: boolean = true;
+
+  constructor(){
+    this.isLoggedIn$ = this.authServices.isLoggedIn();
+  }
 
   ngOnInit(): void {
       this.loadCategories();
+
   }
 
   toggleSidebar(){
@@ -37,7 +46,7 @@ export class SidebarComponent implements OnInit{
         console.log("Categories fetched successfully");
       },
       error: (error) => {
-        console.log("Error fetching catefories: ", error);
+        console.log("Error fetching categories: ", error);
       }
     }));
   }

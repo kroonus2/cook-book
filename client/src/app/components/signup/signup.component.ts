@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/User/user.service';
 import { UserDetail } from '../../interfaces/user-detail';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ToastrModule, ToastrService } from 'ngx-toastr';

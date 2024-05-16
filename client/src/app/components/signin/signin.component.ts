@@ -2,23 +2,25 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { LoginService } from '../../services/login.service';
+import { AuthService } from '../../services/Auth/auth.service';
 import { LoginDetail } from '../../interfaces/login-detail';
-import { LocalService } from '../../services/local.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SidebarComponent],
   templateUrl: './signin.component.html',
-  styleUrl: './signin.component.css'
+  styleUrls: ['./signin.component.css']
 })
 export class SigninComponent {
-  private loginService = inject(LoginService);
-  private localService = inject(LocalService);
+  private toastr = inject(ToastrService);
+  private router = inject(Router);
+  private authService = inject(AuthService);
 
   loginForm = new FormGroup({
-    email : new FormControl(''),
+    email: new FormControl(''),
     password: new FormControl(''),
   });
 
@@ -31,21 +33,18 @@ export class SigninComponent {
         password: formValues.password ?? '',
       };
 
-      this.loginService.newLogin(loginData).subscribe({
-        next: (response : any) => {
-          console.log(response);
-          const token = response.token; 
-          if (token) {
-            this.localService.saveData('token', token); 
-          }
-          this.loginForm.reset(); 
+      this.authService.newLogin(loginData).subscribe({
+        next: () => {
+          this.toastr.success('Login realizado com sucesso!', 'Sucesso');
+          this.router.navigate(['']); // Redirecionar após login
+          this.loginForm.reset();
         },
-        error: (error) => {
-          console.error('Erro ao fazer login', error);
+        error: () => {
+          this.toastr.error('Erro ao fazer login', 'Erro');
         }
       });
     } else {
-      console.error('Formulário inválido');
+      this.toastr.error('Formulário inválido', 'Erro');
     }
   }
 }

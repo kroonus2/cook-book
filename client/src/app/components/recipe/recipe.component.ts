@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { RecipeService } from '../../services/recipe.service';
 import { RecipeDetail } from '../../interfaces/recipe-detail';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { RecipeService } from '../../services/Recipe/recipe.service';
 
 @Component({
   selector: 'app-recipe',
