@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit{
   isLoggedIn$: Observable<Boolean>;
   categories: any[] = [];
 
-  isSidebarExpanded: boolean = false;
+  isSidebarExpanded: boolean = true;
   isDropdownHidden: boolean = true;
 
   constructor(){
@@ -49,5 +49,9 @@ export class SidebarComponent implements OnInit{
         console.log("Error fetching categories: ", error);
       }
     }));
+  }
+
+  logoutUser(){
+    this.authServices.logout();
   }
 }

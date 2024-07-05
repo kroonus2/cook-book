@@ -25,8 +25,4 @@ export class LocalService {
       localStorage.removeItem(key);
     }
   }
-
-  isLogged(): string | null {
-    return this.getData('token');
-  }
 }

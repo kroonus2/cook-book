@@ -36,7 +36,7 @@ export class SigninComponent {
       this.authService.newLogin(loginData).subscribe({
         next: () => {
           this.toastr.success('Login realizado com sucesso!', 'Sucesso');
-          this.router.navigate(['']); // Redirecionar após login
+          this.router.navigate(['/user']); // Redirecionar após login
           this.loginForm.reset();
         },
         error: () => {

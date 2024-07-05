@@ -15,8 +15,7 @@ class AuthController < ApplicationController
     end
 
     def get_auth_user
-        @user = User.find(@current_user[:id])
-        render json: { user: @user }
+        render json: { user: @current_user }
     end
 end
       

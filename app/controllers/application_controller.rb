@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  before_action :authorize_request
+  
     def authorize_request
       header_token = request.headers['Authorization']
       if header_token.present? && header_token.include?('Bearer ')

@@ -13,7 +13,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   let token = null;
 
   if (isPlatformBrowser(platformId)) {
-    token = localService.isLogged();
+    token = localService.getData('token');
   }
 
   if (token && !jwtHelper.isTokenExpired(token)) {

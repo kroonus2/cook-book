@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { UserDetail } from '../../interfaces/user-detail';
 
 const BASE_URL = environment.apiUrl + 'users';
+const USER_URL = environment.apiUrl + 'auth';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,16 @@ export class UserService {
   constructor() { }
 
   newUser(user: UserDetail): Observable<UserDetail> {
-    console.log({user});
     return this.http.post<UserDetail>(BASE_URL, {user})
       .pipe(
         catchError(this.handleError<UserDetail>('newUser'))
+      );
+  }
+
+  getUserLoggedIn(): Observable<UserDetail> {
+    return this.http.get<UserDetail>(USER_URL)
+      .pipe(
+        catchError(this.handleError<UserDetail>('getUsrLogged'))
       );
   }
 

@@ -9,11 +9,10 @@ Rails.application.routes.draw do
   get 'ingredients/create'
   get 'ingredients/update'
   get 'ingredients/destroy'
-  
+
   post '/login', to: 'auth#login'
-  scope '/auth' do 
-    get '/' => 'auth#get_auth_user', as: :get_auth_user
-  end
+  get '/auth', to: 'auth#get_auth_user'
+
   resources :users, only: [:index, :show, :create, :update] do
     member do
       patch 'change_password'
