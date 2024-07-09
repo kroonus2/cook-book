@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 import { AuthService } from '../../services/Auth/auth.service';
 import { LoginDetail } from '../../interfaces/login-detail';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SidebarComponent],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })

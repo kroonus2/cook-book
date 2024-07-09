@@ -1,57 +1,50 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive, provideRouter } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CategoriesService } from '../../services/Category/categories.service';
 import { AuthService } from '../../services/Auth/auth.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
 })
-export class SidebarComponent implements OnInit{
-  private categoriesServices = inject(CategoriesService);
-  private authServices = inject(AuthService);
+export class NavbarComponent implements OnInit {
+  private categoriesService = inject(CategoriesService);
+  private authService = inject(AuthService);
   
   isLoggedIn$: Observable<Boolean>;
   categories: any[] = [];
-
-  isSidebarExpanded: boolean = true;
   isDropdownHidden: boolean = true;
 
-  constructor(){
-    this.isLoggedIn$ = this.authServices.isLoggedIn();
+  constructor() {
+    this.isLoggedIn$ = this.authService.isLoggedIn();
   }
 
   ngOnInit(): void {
-      this.loadCategories();
-
+    this.loadCategories();
   }
 
-  toggleSidebar(){
-    this.isSidebarExpanded = !this.isSidebarExpanded;
-  }
-
-  toggleDropdown(){
+  toggleDropdown() {
     this.isDropdownHidden = !this.isDropdownHidden;
   }
 
-  loadCategories(){
-    this.categoriesServices.getCategories().subscribe(({
+  loadCategories() {
+    this.categoriesService.getCategories().subscribe({
       next: (res: any) => {
-        this.categories = res.categories
+        this.categories = res.categories;
         console.log("Categories fetched successfully");
       },
       error: (error) => {
         console.log("Error fetching categories: ", error);
       }
-    }));
+    });
   }
 
-  logoutUser(){
-    this.authServices.logout();
+  logoutUser() {
+    this.authService.logout();
   }
 }

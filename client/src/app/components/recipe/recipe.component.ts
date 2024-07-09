@@ -1,12 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RecipeDetail } from '../../interfaces/recipe-detail';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RecipeService } from '../../services/Recipe/recipe.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-recipe',
   standalone: true,
-  imports: [SidebarComponent, ],
+  imports: [NavbarComponent],
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.css'
 })

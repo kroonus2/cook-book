@@ -3,13 +3,13 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/User/user.service';
 import { UserDetail } from '../../interfaces/user-detail';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ToastrModule, SidebarComponent],
+  imports: [CommonModule, ReactiveFormsModule, ToastrModule, NavbarComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
