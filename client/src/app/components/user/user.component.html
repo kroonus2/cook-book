@@ -1,49 +1,127 @@
-<app-sidebar></app-sidebar>
-<div class="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-    <div class="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg mt-3">
-        <div class="px-4 py-5 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Olá {{user?.name}}
-            </h3>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                {{user?.bio}}
-            </p>
-        </div>
-        <div class="border-t border-gray-200">
-            <dl>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                        Nome completo
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{user?.name}}
-                    </dd>
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-gray-100">
+    <div class="flex flex-col items-center">
+        <div class="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg mt-3">
+            <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg leading-6 text-gray-700">
+                    Olá, {{user?.name}}
+                </h3>
+            </div>
+            <div class="border-t border-gray-200">
+                <dl>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Nome completo
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{user?.name}}
+                        </dd>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Email
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{user?.email}}
+                        </dd>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Sobre
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{user?.bio}}
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+            <div class="flex flex-col items-center p-4">
+                <div>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="#e8eaed">
+                            <path
+                                d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+                        </svg>
+                    </button>
                 </div>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                        Email
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{user?.email}}
-                    </dd>
-                </div>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                        Sobre
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{user?.bio}}
-                    </dd>
-                </div>
-            </dl>
+            </div>
         </div>
     </div>
-    <div class="mt-3 flex space-x-3">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+    <hr class="m-5">
+    <div class="m-3 p-3 flex flex-col items-center">
+        <h2 class="text-sky-800 text-lg my-3">
             Minhas Receitas
-        </button>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-            Editar Perfil
-        </button>
+        </h2>
+        <div class="grid grid-cols-3 gap-4">
+            <div
+                class="box-border border-dashed border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer">
+                <div class="grid grid-cols-1">
+                    <div class="flex flex-col items-center pt-7">
+                        <div class="col-span-2 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
+                                fill="#5985E1">
+                                <path
+                                    d="M446.67-446.67H200v-66.66h246.67V-760h66.66v246.67H760v66.66H513.33V-200h-66.66v-246.67Z" />
+                            </svg>
+                        </div>
+                        <div class="col-span-4">
+                            <p class="font-semibold">Nova Receita</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="box-border border-solid border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer m-0">
+                <div class="grid grid-cols-1">
+                    <div class="flex flex-col items-center pt-7">
+                        <div class="col-span-2 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
+                                fill="#5985E1">
+                                <path
+                                    d="M446.67-446.67H200v-66.66h246.67V-760h66.66v246.67H760v66.66H513.33V-200h-66.66v-246.67Z" />
+                            </svg>
+                        </div>
+                        <div class="col-span-4">
+                            <p class="font-semibold">Receita</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="box-border border-solid border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer m-0">
+                <div class="grid grid-cols-1">
+                    <div class="flex flex-col items-center pt-7">
+                        <div class="col-span-2 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
+                                fill="#5985E1">
+                                <path
+                                    d="M446.67-446.67H200v-66.66h246.67V-760h66.66v246.67H760v66.66H513.33V-200h-66.66v-246.67Z" />
+                            </svg>
+                        </div>
+                        <div class="col-span-4">
+                            <p class="font-semibold">Receita</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="box-border border-solid border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer m-0">
+                <div class="grid grid-cols-1">
+                    <div class="flex flex-col items-center pt-7">
+                        <div class="col-span-2 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
+                                fill="#5985E1">
+                                <path
+                                    d="M446.67-446.67H200v-66.66h246.67V-760h66.66v246.67H760v66.66H513.33V-200h-66.66v-246.67Z" />
+                            </svg>
+                        </div>
+                        <div class="col-span-4">
+                            <p class="font-semibold">Receita</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

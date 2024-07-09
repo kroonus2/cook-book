@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
   
     def authorize_request
       header_token = request.headers['Authorization']
-      if header_token.present? && header_token.include?('Bearer ')
+      if (header_token.present? && header_token.include?('Bearer '))
         token = header_token.split(' ').last
         Rails.logger.info "Received token: #{token}" # Registra o token nos logs do Rails
         begin
