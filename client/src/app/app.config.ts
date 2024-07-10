@@ -25,8 +25,8 @@ export const appConfig: ApplicationConfig = {
         useFactory: () => {
           return {
             tokenGetter: tokenGetter,
-            allowedDomains: ['localhost:3000'], // Adicione os domínios permitidos aqui
-            disallowedRoutes: ['http://localhost:3000/api/auth'], // Adicione as rotas que não devem incluir o token aqui
+            allowedDomains: ['http://localhost:3000'], // Adicione os domínios permitidos aqui
+            disallowedRoutes: [''], // Adicione as rotas que não devem incluir o token aqui
           };
         },
       },

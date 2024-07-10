@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CategoriesService } from '../../services/Category/categories.service';
 import { AuthService } from '../../services/Auth/auth.service';
 import { Observable } from 'rxjs';
@@ -18,7 +18,8 @@ export class NavbarComponent implements OnInit {
   private categoriesService = inject(CategoriesService);
   private authService = inject(AuthService);
   private userService = inject(UserService);
-  
+  private router = inject(Router);
+
   user: UserDetail | null = null;
 
 
@@ -33,7 +34,13 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCategories();
-    this.getAuthUser();
+    this.isLoggedIn$.subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.getAuthUser();
+      } else {
+        this.user = null;
+      }
+    });
   }
 
   toggleDropdown() {
@@ -69,5 +76,6 @@ export class NavbarComponent implements OnInit {
 
   logoutUser() {
     this.authService.logout();
+    this.router.navigate(['']);
   }
 }
