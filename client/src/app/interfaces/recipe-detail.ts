@@ -1,4 +1,4 @@
-export interface RecipeDetail {
+export interface RecipeDetails {
   id: number;
   name: string;
   description: string;
@@ -10,4 +10,15 @@ export interface RecipeDetail {
   created_at: string;
   updated_at: string;
   status: string;
+}
+
+
+export interface NewRecipeDetails{
+  name: string;
+  description: string;
+  instructions: string;
+  preparation_time: number;
+  difficulty: string;
+  user_id: number;
+  category_id: number;
 }
