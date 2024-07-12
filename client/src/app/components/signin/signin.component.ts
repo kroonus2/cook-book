@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/Auth/auth.service';
-import { LoginDetail } from '../../interfaces/login-detail';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { LoginDetails } from '../../interfaces/user-detail';
 
 @Component({
   selector: 'app-signin',
@@ -28,7 +28,7 @@ export class SigninComponent {
     if (this.loginForm.valid) {
       const formValues = this.loginForm.value;
 
-      const loginData: LoginDetail = {
+      const loginData: LoginDetails = {
         email: formValues.email ?? '',
         password: formValues.password ?? '',
       };

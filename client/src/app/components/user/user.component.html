@@ -54,7 +54,7 @@
             Minhas Receitas
         </h2>
         <div class="grid grid-cols-3 gap-4">
-            <div
+            <div (click)="toggleNewRecipeForm()"
                 class="box-border border-dashed border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer">
                 <div class="grid grid-cols-1">
                     <div class="flex flex-col items-center pt-7">
@@ -71,6 +71,8 @@
                     </div>
                 </div>
             </div>
+            @for (recipe of recipes; track recipe.id) {
+            <!-- Exemplo de receita existente -->
             <div
                 class="box-border border-solid border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer m-0">
                 <div class="grid grid-cols-1">
@@ -79,47 +81,88 @@
                             <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
                                 fill="#5985E1">
                                 <path
-                                    d="M446.67-446.67H200v-66.66h246.67V-760h66.66v246.67H760v66.66H513.33V-200h-66.66v-246.67Z" />
+                                    d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z" />
                             </svg>
                         </div>
                         <div class="col-span-4">
-                            <p class="font-semibold">Receita</p>
+                            <p class="text-center font-semibold">{{recipe.name}}</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-1">
+                            <div>
+                                {{recipe.difficulty}}
+                            </div>
+                            <div>
+                                {{getCategoryName(recipe.category_id)}}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div
-                class="box-border border-solid border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer m-0">
-                <div class="grid grid-cols-1">
-                    <div class="flex flex-col items-center pt-7">
-                        <div class="col-span-2 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
-                                fill="#5985E1">
-                                <path
-                                    d="M446.67-446.67H200v-66.66h246.67V-760h66.66v246.67H760v66.66H513.33V-200h-66.66v-246.67Z" />
-                            </svg>
+            }
+            <!-- Formulário de nova receita -->
+            <div *ngIf="showNewRecipeForm"
+                class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                <div class="bg-sky-800 p-6 rounded-lg shadow-lg text-white">
+                    <h2 class=" text-xl text-center mb-4">Criar Nova Receita</h2>
+                    <hr class="border border-3 m-3">
+                    <form (ngSubmit)="submitNewRecipe()">
+                        <div class="mb-4">
+                            <label for="recipeName" class="block  text-sm text-lg mb-2">Nome da
+                                Receita</label>
+                            <input type="text" id="recipeName" [(ngModel)]="newRecipe.name" name="recipeName"
+                                class="shadow appearance-none border rounded w-96 py-2 px-3 text-sky-600 leading-tight focus:outline-none focus:shadow-outline "
+                                required>
                         </div>
-                        <div class="col-span-4">
-                            <p class="font-semibold">Receita</p>
+                        <div class="mb-4">
+                            <label for="recipePreparationTime" class="block text-sm text-lg mb-2">Tempo
+                                de
+                                Preparação</label>
+                            <input type="text" id="recipePreparationTime" [(ngModel)]="newRecipe.preparation_time"
+                                name="recipePreparationTime"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-sky-600 leading-tight focus:outline-none focus:shadow-outline"
+                                required>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="box-border border-solid border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer m-0">
-                <div class="grid grid-cols-1">
-                    <div class="flex flex-col items-center pt-7">
-                        <div class="col-span-2 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
-                                fill="#5985E1">
-                                <path
-                                    d="M446.67-446.67H200v-66.66h246.67V-760h66.66v246.67H760v66.66H513.33V-200h-66.66v-246.67Z" />
-                            </svg>
+                        <div class="mb-4">
+                            <label for="recipeDifficulty" class="block  text-sm text-lg mb-2">Dificuldade</label>
+                            <select id="recipeDifficulty" [(ngModel)]="newRecipe.difficulty" name="recipeDifficulty"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-sky-600 leading-tight focus:outline-none focus:shadow-outline"
+                                required>
+                                <option *ngFor="let difficulty of difficulties" [value]="difficulty">{{difficulty}}
+                                </option>
+                            </select>
                         </div>
-                        <div class="col-span-4">
-                            <p class="font-semibold">Receita</p>
+                        <div class="mb-4">
+                            <label for="recipeCategory" class="block  text-sm text-lg mb-2">Categoria
+                                Principal</label>
+                            <select id="recipeCategory" [(ngModel)]="newRecipe.category_id" name="recipeCategory"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-sky-600 leading-tight focus:outline-none focus:shadow-outline"
+                                required>
+                                <option *ngFor="let category of categories" [value]="category.id">{{category.name}}
+                                </option>
+                            </select>
                         </div>
-                    </div>
+                        <div class="mb-4">
+                            <label for="recipeDescription" class="block  text-sm text-lg mb-2">Descrição</label>
+                            <textarea id="recipeDescription" [(ngModel)]="newRecipe.description"
+                                name="recipeDescription"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-sky-600 leading-tight focus:outline-none focus:shadow-outline"
+                                required></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="recipeInstructions" class="block  text-sm text-lg mb-2">Instruções
+                                de Preparo</label>
+                            <textarea id="recipeInstructions" [(ngModel)]="newRecipe.instructions"
+                                name="recipeInstructions"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-sky-600 leading-tight focus:outline-none focus:shadow-outline"
+                                required></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 items-center justify-between">
+                            <button type="submit"
+                                class="outline outline-2 outline-blue-500 hover:bg-blue-700 text-white text-lg py-2 px-4 rounded focus:outline-none focus:shadow-outline">Salvar</button>
+                            <button type="button" (click)="toggleNewRecipeForm()"
+                                class="outline outline-2 outline-pink-500 hover:bg-pink-700 text-white text-lg py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancelar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

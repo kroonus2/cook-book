@@ -5,7 +5,7 @@ import { CategoriesService } from '../../services/Category/categories.service';
 import { AuthService } from '../../services/Auth/auth.service';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/User/user.service';
-import { UserDetail } from '../../interfaces/user-detail';
+import { NewUserDetails } from '../../interfaces/user-detail';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
 
-  user: UserDetail | null = null;
+  user: NewUserDetails | null = null;
 
 
   isLoggedIn$: Observable<Boolean>;

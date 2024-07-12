@@ -5,6 +5,8 @@
             Receitas em Destaque
         </h2>
         <div class="grid grid-cols-3 gap-4">
+            @for (recipe of recipes; track recipe.id) {
+            <!-- Exemplo de receita existente -->
             <div
                 class="box-border border-solid border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer m-0">
                 <div class="grid grid-cols-1">
@@ -13,50 +15,24 @@
                             <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
                                 fill="#5985E1">
                                 <path
-                                    d="M446.67-446.67H200v-66.66h246.67V-760h66.66v246.67H760v66.66H513.33V-200h-66.66v-246.67Z" />
+                                    d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z" />
                             </svg>
                         </div>
                         <div class="col-span-4">
-                            <p class="font-semibold">Receita</p>
+                            <p class="text-center font-semibold">{{recipe.name}}</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-1">
+                            <div>
+                                {{recipe.difficulty}} -
+                            </div>
+                            <div>
+                                {{getCategoryName(recipe.category_id)}}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div
-                class="box-border border-solid border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer m-0">
-                <div class="grid grid-cols-1">
-                    <div class="flex flex-col items-center pt-7">
-                        <div class="col-span-2 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
-                                fill="#5985E1">
-                                <path
-                                    d="M446.67-446.67H200v-66.66h246.67V-760h66.66v246.67H760v66.66H513.33V-200h-66.66v-246.67Z" />
-                            </svg>
-                        </div>
-                        <div class="col-span-4">
-                            <p class="font-semibold">Receita</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="box-border border-solid border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer m-0">
-                <div class="grid grid-cols-1">
-                    <div class="flex flex-col items-center pt-7">
-                        <div class="col-span-2 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
-                                fill="#5985E1">
-                                <path
-                                    d="M446.67-446.67H200v-66.66h246.67V-760h66.66v246.67H760v66.66H513.33V-200h-66.66v-246.67Z" />
-                            </svg>
-                        </div>
-                        <div class="col-span-4">
-                            <p class="font-semibold">Receita</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
-    </div>
 
-</div>
+    </div>

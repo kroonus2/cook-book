@@ -3,7 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { UserDetail } from '../../interfaces/user-detail';
+import { NewUserDetails } from '../../interfaces/user-detail';
 
 const BASE_URL = environment.apiUrl + 'users';
 const USER_URL = environment.apiUrl + 'auth';
@@ -17,17 +17,17 @@ export class UserService {
 
   constructor() { }
 
-  newUser(user: UserDetail): Observable<UserDetail> {
-    return this.http.post<UserDetail>(BASE_URL, {user})
+  newUser(user: NewUserDetails): Observable<NewUserDetails> {
+    return this.http.post<NewUserDetails>(BASE_URL, {user})
       .pipe(
-        catchError(this.handleError<UserDetail>('newUser'))
+        catchError(this.handleError<NewUserDetails>('newUser'))
       );
   }
 
-  getUserLoggedIn(): Observable<UserDetail> {
-    return this.http.get<UserDetail>(USER_URL)
+  getUserLoggedIn(): Observable<NewUserDetails> {
+    return this.http.get<NewUserDetails>(USER_URL)
       .pipe(
-        catchError(this.handleError<UserDetail>('getUsrLogged'))
+        catchError(this.handleError<NewUserDetails>('getUsrLogged'))
       );
   }
 

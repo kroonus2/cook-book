@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/User/user.service';
-import { UserDetail } from '../../interfaces/user-detail';
+import { NewUserDetails } from '../../interfaces/user-detail';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { NavbarComponent } from '../navbar/navbar.component';
 
@@ -32,7 +32,7 @@ export class SignupComponent {
     if (this.newUserForm.valid) {
       const formValues = this.newUserForm.value;
 
-      const userData: UserDetail = {
+      const userData: NewUserDetails = {
         name: formValues.name ?? '',
         email: formValues.email ?? '',
         password: formValues.password ?? '',

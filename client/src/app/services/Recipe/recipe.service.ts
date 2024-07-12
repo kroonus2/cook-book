@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { RecipeDetail } from '../../interfaces/recipe-detail';
-import { Observable } from 'rxjs';
+import { NewRecipeDetails, RecipeDetails } from '../../interfaces/recipe-detail';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-
 
 const BASE_URL = environment.apiUrl + 'recipes';
 
@@ -15,7 +15,50 @@ export class RecipeService {
 
   constructor() { }
 
-  getRecipes(): Observable<RecipeDetail>{
-    return this.http.get<RecipeDetail>(BASE_URL);
+  // Fetch all recipes
+  getRecipes(): Observable<RecipeDetails[]> {
+    return this.http.get<RecipeDetails[]>(BASE_URL).pipe(
+      catchError(this.handleError<RecipeDetails[]>('getRecipes', []))
+    );
+  }
+
+  // Fetch a specific recipe by userID
+  getRecipe(userID: number): Observable<RecipeDetails> {
+    const url = `${BASE_URL}/user/${userID}`;
+    return this.http.get<RecipeDetails>(url).pipe(
+      catchError(this.handleError<RecipeDetails>(`getRecipe id=${userID}`))
+    );
+  }
+
+  // Create a new recipe
+  newRecipe(recipe: NewRecipeDetails): Observable<RecipeDetails> {
+    return this.http.post<RecipeDetails>(BASE_URL, recipe).pipe(
+      catchError(this.handleError<RecipeDetails>('newRecipe'))
+    );
+  }
+
+  // Update an existing recipe by recipeID
+  updateRecipe(recipeID: number, recipe: RecipeDetails): Observable<any> {
+    const url = `${BASE_URL}/${recipeID}`;
+    return this.http.put(url, recipe).pipe(
+      catchError(this.handleError<any>(`updateRecipe id=${recipeID}`))
+    );
+  }
+
+  // Delete a recipe by recipeID
+  deleteRecipe(recipeID: number): Observable<any> {
+    const url = `${BASE_URL}/${recipeID}`;
+    return this.http.delete(url).pipe(
+      catchError(this.handleError<any>(`deleteRecipe id=${recipeID}`))
+    );
+  }
+
+  // Handle HTTP errors
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: HttpErrorResponse): Observable<T> => {
+      console.error(`${operation} failed: ${error.message}`); // Log the error to the console
+      // Let the app keep running by returning an empty result.
+      return throwError(() => new Error(error.message));
+    };
   }
 }

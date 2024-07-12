@@ -1,11 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { LoginDetail } from '../../interfaces/login-detail';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { LocalService } from '../LocalStorage/local.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError, tap } from 'rxjs/operators';
+import { LoginDetails } from '../../interfaces/user-detail';
 
 const BASE_URL = environment.apiUrl + 'login';
 
@@ -20,7 +20,7 @@ export class AuthService {
 
   constructor() { }
 
-  public newLogin(login: LoginDetail): Observable<any> {
+  public newLogin(login: LoginDetails): Observable<any> {
     return this.http.post<{ token: string }>(BASE_URL, login).pipe(
       tap(response => {
         if (response.token) {
