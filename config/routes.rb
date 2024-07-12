@@ -20,7 +20,11 @@ Rails.application.routes.draw do
   end
   resources :recipes, only: [:index, :show, :create, :update, :destroy] do
     resources :ingredients, only: [:create, :update, :destroy]
-    get 'show_stored', on: :collection  # Rota para exibir receitas armazenadas
+    
+    # Rota para exibir receitas armazenadas do usuário
+    get 'stored/:user_id', to: 'recipes#show_stored_recipes', as: 'stored_user', on: :collection
+
+    get 'user/:user_id', to: 'recipes#show_user_recipes', as: 'user', on: :collection   # Rota para exibir receitas do usuário
   end
   resources :categories, only: [:index, :show, :create, :update]
 end

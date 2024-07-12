@@ -4,7 +4,7 @@ class AuthController < ApplicationController
     def login 
         @user = User.find_by(email: params[:email])
         if @user&.authenticate(params[:password])
-        exp = Time.now.to_i + 4 * 3600
+        exp = Time.now.to_i + 2 * 3600
         exp_payload = { user_id: @user.id, exp: exp }
 
         token = JWT.encode(exp_payload, nil, 'none')

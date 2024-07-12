@@ -5,10 +5,10 @@ class ApplicationController < ActionController::API
       header_token = request.headers['Authorization']
       if (header_token.present? && header_token.include?('Bearer '))
         token = header_token.split(' ').last
-        Rails.logger.info "Received token: #{token}" # Registra o token nos logs do Rails
+        # Rails.logger.info "Received token: #{token}" # Registra o token nos logs do Rails
         begin
           @decoded_token = JWT.decode(token, nil, false).first
-          Rails.logger.info "Decoded token: #{@decoded_token}" # Adicione esta linha para depuração
+          # Rails.logger.info "Decoded token: #{@decoded_token}" # Adicione esta linha para depuração
           @current_user = User.find(@decoded_token['user_id'])
         rescue JWT::DecodeError => e
           render json: { error: "Token inválido ou expirado", message: e.message }, status: :unauthorized
