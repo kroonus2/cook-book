@@ -6,11 +6,12 @@ import { AuthService } from '../../services/Auth/auth.service';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/User/user.service';
 import { NewUserDetails } from '../../interfaces/user-detail';
+import { TruncateNamePipe } from '../../pipe/truncate-name.pipe';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, TruncateNamePipe],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })

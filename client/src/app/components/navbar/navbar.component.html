@@ -1,14 +1,29 @@
 <nav class="bg-white dark:bg-sky-700 shadow-lg relative">
     <div class="container mx-auto px-4">
         <div class="flex justify-between">
-            <!-- Logo or Brand Name -->
             <div class="flex items-center py-3">
                 <a href="#" class="text-white text-3xl font-semibold m-3 px-4">
                     <!-- <img src="assets/img/MyRecipes_3.svg" alt="Logo" class="navbar-logo m-0"> -->
                     MyRecipes
                 </a>
             </div>
-            <!-- Navbar Links -->
+            <div class="flex items-center ">
+                <form>
+                    <div class="relative left-10">
+                        <input type="search" id="search"
+                            class="block w-96 p-4 ps-10 text-sm text-gray-900 border border-sky-300 rounded-lg bg-gray-100 focus:border-2 focus:border-sky-500 "
+                            placeholder="Buscar Receita" required />
+                        <button type="submit"
+                            class="text-white absolute end-2.5 bottom-2.5 bg-sky-700 hover:bg-sky-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
+                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
             <div class="flex items-center space-x-4">
                 <div class="relative">
                     <button type="button" aria-controls="dropdown-example" (click)="toggleDropdown()"
@@ -19,7 +34,7 @@
                             <path
                                 d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 7c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM3 21.5h8v-8H3v8zm2-6h4v4H5v-4z" />
                         </svg>
-                        <span class="ml-2">Categorias</span>
+                        <span class="m-4">Categorias</span>
                     </button>
                     <div id="dropdown-example" [class.hidden]="isDropdownHidden"
                         class="hidden bg-white dark:bg-sky-700 shadow-lg absolute left-0 w-36 py-2 mt-2 rounded-lg z-10">
@@ -40,7 +55,7 @@
                                 <path
                                     d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z" />
                             </svg>
-                            <span class="ml-2">{{user?.name}}</span>
+                            <span class="m-4 p-0">{{ user!.name | truncateName: 10 }}</span>
                         </button>
                         <div id="dropdown-example" [class.hidden]="isUserHidden"
                             class="hidden bg-white dark:bg-sky-700 shadow-lg absolute left-0 w-32 py-2 mt-2 rounded-lg z-10">
