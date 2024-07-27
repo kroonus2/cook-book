@@ -10,5 +10,6 @@ export const routes: Routes = [
     {path: '', component: RecipePaginationComponent},
     {path: 'sign-up', component: SignupComponent},
     {path: 'sign-in', component: SigninComponent},
-    {path: 'user', component: UserComponent}
+    {path: 'user', component: UserComponent},
+    {path: 'recipe/:id', component: RecipeComponent}
 ];
