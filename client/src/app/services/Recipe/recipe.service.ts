@@ -22,8 +22,16 @@ export class RecipeService {
     );
   }
 
+  // Fetch a specific recipe by ID
+  getRecipeById(Id: number): Observable<RecipeDetails> {
+    const url = `${BASE_URL}/${Id}`;
+    return this.http.get<RecipeDetails>(url).pipe(
+      catchError(this.handleError<RecipeDetails>(`getRecipe id=${Id}`))
+    );
+  }
+
   // Fetch a specific recipe by userID
-  getRecipe(userID: number): Observable<RecipeDetails> {
+  getRecipeByUser(userID: number): Observable<RecipeDetails> {
     const url = `${BASE_URL}/user/${userID}`;
     return this.http.get<RecipeDetails>(url).pipe(
       catchError(this.handleError<RecipeDetails>(`getRecipe id=${userID}`))
@@ -38,7 +46,7 @@ export class RecipeService {
   }
 
   // Update an existing recipe by recipeID
-  updateRecipe(recipeID: number, recipe: RecipeDetails): Observable<any> {
+  updateRecipe(recipeID: number, recipe: NewRecipeDetails): Observable<any> {
     const url = `${BASE_URL}/${recipeID}`;
     return this.http.put(url, recipe).pipe(
       catchError(this.handleError<any>(`updateRecipe id=${recipeID}`))

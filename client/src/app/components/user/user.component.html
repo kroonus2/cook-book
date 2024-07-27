@@ -73,10 +73,27 @@
             </div>
             @for (recipe of recipes; track recipe.id) {
             <!-- Exemplo de receita existente -->
-            <div
-                class="box-border border-solid border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer m-0">
+            <div class="box-border border-solid border-sky-500 border-2 hover:border-sky-700 hover:border-3 rounded-lg h-48 w-80 p-6 cursor-pointer m-0"
+                (click)="onRedirectRecipe(recipe.id)">
                 <div class="grid grid-cols-1">
-                    <div class="flex flex-col items-center pt-7">
+                    <!-- Editar e remover -->
+                    <div class="relative flex justify-end">
+                        <button (click)="toggleOptionsMenu(recipe.id); $event.stopPropagation();">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                fill="#5985E1">
+                                <path
+                                    d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z" />
+                            </svg>
+                        </button>
+                        <div *ngIf="visibleOptionsMenus.has(recipe.id)"
+                            class="absolute left-48 top-8 w-24 flex flex-col bg-white dark:bg-sky-700 border border-gray-300 rounded rounded-lg shadow-lg z-50 text-white"
+                            (click)="$event.stopPropagation()">
+                            <button class="hover:bg-sky-500 p-2" (click)="editRecipe(recipe)">Editar</button>
+                            <button class="hover:bg-sky-500 p-2" (click)="onArchiveRecipe(recipe.id)">Arquivar</button>
+                            <button class="hover:bg-sky-500 p-2" (click)="onRemoveRecipe(recipe.id)">Remover</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center p-0 relative">
                         <div class="col-span-2 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
                                 fill="#5985E1">
@@ -100,12 +117,13 @@
             </div>
             }
             <!-- Formulário de nova receita -->
-            <div *ngIf="showNewRecipeForm"
+            <div *ngIf="showNewRecipeForm || editingRecipe"
                 class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                 <div class="bg-sky-800 p-6 rounded-lg shadow-lg text-white">
-                    <h2 class=" text-xl text-center mb-4">Criar Nova Receita</h2>
+                    <h2 class=" text-xl text-center mb-4">{{ editingRecipe ? 'Editar Receita' : 'Criar Nova Receita' }}
+                    </h2>
                     <hr class="border border-3 m-3">
-                    <form (ngSubmit)="submitNewRecipe()">
+                    <form (ngSubmit)="editingRecipe ? onUpdateRecipe() : onSubmitNewRecipe()">
                         <div class="mb-4">
                             <label for="recipeName" class="block  text-sm text-lg mb-2">Nome da
                                 Receita</label>
@@ -158,7 +176,8 @@
                         </div>
                         <div class="grid grid-cols-2 gap-4 items-center justify-between">
                             <button type="submit"
-                                class="outline outline-2 outline-blue-500 hover:bg-blue-700 text-white text-lg py-2 px-4 rounded focus:outline-none focus:shadow-outline">Salvar</button>
+                                class="outline outline-2 outline-blue-500 hover:bg-blue-700 text-white text-lg py-2 px-4 rounded focus:outline-none focus:shadow-outline">{{
+                                editingRecipe ? 'Alterar' : 'Salvar' }}</button>
                             <button type="button" (click)="toggleNewRecipeForm()"
                                 class="outline outline-2 outline-pink-500 hover:bg-pink-700 text-white text-lg py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancelar</button>
                         </div>
