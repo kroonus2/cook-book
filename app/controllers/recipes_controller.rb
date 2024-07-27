@@ -22,13 +22,14 @@ class RecipesController < ApplicationController
   end
 
   def show_user_recipes
-    @recipes = Recipe.where(user_id: params[:user_id])
+    @recipes = Recipe.where(user_id: params[:user_id]).where.not(status: "deleted")
     if @recipes.present?
       render json: { message: "Lista de Receitas do usuário recuperadas com sucesso", recipes: @recipes }, status: :ok
     else
       render json: { message: "Não há receitas armazenadas para exibir" }, status: :not_found
     end
   end
+  
 
   def show_stored_recipes
     @recipes = Recipe.where(user_id: params[:user_id], status: "stored")
@@ -71,6 +72,16 @@ class RecipesController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     render json: { message: "Receita não encontrada" }, status: :not_found
+  end
+
+  def search
+    query = params[:query]
+    if query.present?
+      @recipes = Recipe.where('name ILIKE ?', "%#{query}%")
+      render json: { message: "Receitas encontradas", recipes: @recipes }, status: :ok
+    else
+      render json: { message: "Nenhum termo de pesquisa fornecido" }, status: :bad_request
+    end
   end
 
   private 
