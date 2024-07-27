@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     get 'stored/:user_id', to: 'recipes#show_stored_recipes', as: 'stored_user', on: :collection
 
     get 'user/:user_id', to: 'recipes#show_user_recipes', as: 'user', on: :collection   # Rota para exibir receitas do usuário
+
+    # Rota para a pesquisa de receitas
+    get 'search', to: 'recipes#search', on: :collection
   end
   resources :categories, only: [:index, :show, :create, :update]
 end
